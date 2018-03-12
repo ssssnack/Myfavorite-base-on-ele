@@ -12,6 +12,13 @@ const portfinder = require('portfinder')
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
+//后端代理请求 BRGIN
+const express = require('express')
+const axios = require('axios')
+const app = express()
+var apiRoutes =express.Router()
+app.use('/api',apiRoutes)
+//后端代理请求 END
 
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
@@ -42,6 +49,22 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     quiet: true, // necessary for FriendlyErrorsPlugin
     watchOptions: {
       poll: config.dev.poll,
+    },
+    before(app) {
+      app.get('/api/getMovies',function(req,res) {
+        var url = 'https://movie.douban.com/j/search_subjects'
+        axios.get(url,{
+          headers: {
+            referer:'https://movie.douban.com/',
+            host: 'movie.douban.com'
+          },
+          params:req.query
+        }).then((response) =>{
+          res.json(response.data)
+        }).catch((e) =>{
+          console.log(e)
+        })
+      })
     }
   },
   plugins: [
