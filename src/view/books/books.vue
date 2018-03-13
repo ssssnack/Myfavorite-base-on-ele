@@ -1,15 +1,34 @@
 <template>
  <div class="book-panel">
   <h2 class="title">最受关注图书推荐 / 虚构类</h2>
+    <m-list :data="books" :mType="mType"></m-list>
  </div>
 </template>
 
 <script>
+import MList from 'components/mList/mList'
+import {getXgBooks} from 'api/movies'
 export default {
-  data() {
-    return {};
+  created() {
+    this._getXgBooks()
   },
-  components: {}
+  data() {
+    return {
+      books:[],
+      mType: 'bg-book'
+    };
+  },
+  components: {
+    MList
+  },
+  
+  methods:{
+    _getXgBooks() {
+      getXgBooks().then(res =>{
+        this.books = res.subject_collection_items
+      })
+    }
+  }
 };
 </script>
 

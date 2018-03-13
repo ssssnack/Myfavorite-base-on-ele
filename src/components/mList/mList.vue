@@ -4,11 +4,15 @@
         class="list-item">
           <el-row class="grid-content" :class="[mType]" :gutter="10">
               <el-col :span="12">
-                <img :src="item.cover" width="115" height="173">
+                <img :src="item.cover" width="115" height="173" v-if="mType==='bg-movie'">
+                <img :src="item.cover.url"  width="115" height="173" v-if="mType==='bg-book'">
               </el-col>
               <el-col :span="12" class="text">
                 <div class="title">{{item.title}}</div>
-                <div class="rate"> {{item.rate}}
+                <div class="rate"  v-if="mType==='bg-movie'"> {{item.rate}}
+                  <span class="small">分</span>
+                  </div>
+                  <div class="rate"  v-if="mType==='bg-book'"> {{item.rating.value}}
                   <span class="small">分</span>
                   </div>
               </el-col>
@@ -29,7 +33,7 @@ export default {
     },
     mType: {
       type: String,
-      default: 'bg-movie'
+      default: "bg-movie"
     }
   }
 };
@@ -67,8 +71,10 @@ export default {
   }
 }
 
-
 .bg-movie {
+  background: #f2f6fc;
+}
+.bg-book {
   background: #f2f6fc;
 }
 .grid-content {
