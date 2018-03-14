@@ -1,11 +1,15 @@
 <template>
-<el-row :gutter="30" class="list" :mType="mType">
-        <el-col :span="6" v-for="item in data" 
+<el-row :gutter="30" 
+        class="list" 
+        :mType="mType"
+        v-loading.fullscreen.lock="loading">
+        <el-col :span="6" 
+        v-for="item in data" 
         class="list-item">
           <el-row class="grid-content" :class="[mType]" :gutter="10">
               <el-col :span="12">
-                <img :src="item.cover" width="115" height="173" v-if="mType==='bg-movie'">
-                <img :src="item.cover.url"  width="115" height="173" v-if="mType==='bg-book'">
+                <img v-lazy="item.cover" width="115" height="173" v-if="mType==='bg-movie'">
+                <img v-lazy="item.cover.url"  width="115" height="173" v-if="mType==='bg-book'">
               </el-col>
               <el-col :span="12" class="text">
                 <div class="title">{{item.title}}</div>
@@ -34,6 +38,18 @@ export default {
     mType: {
       type: String,
       default: "bg-movie"
+    }
+  },
+  data() {
+    return {
+      loading: true
+    };
+  },
+  watch: {
+    data() {
+      if(this.data) {
+        this.loading=false
+      }
     }
   }
 };

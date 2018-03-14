@@ -10,6 +10,12 @@ import './common/sass/index.scss'
 import axios from 'axios'
 Vue.prototype.$http = axios
 
+//使用vue-lazyload做图片懒加载
+import VueLazyload from 'vue-lazyload'
+Vue.use(VueLazyload,{
+  loading: require("common/images/default.jpg")
+})
+
 Vue.use(ElemnetUI)
 
 Vue.config.productionTip = false
