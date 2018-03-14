@@ -14,7 +14,7 @@ export const options = {
 export const booksParams = {
   os:'ios',
   start:0,
-  count:10,
+  count:12,
   loc_id:0,
   _:0
 }

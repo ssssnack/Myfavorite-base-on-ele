@@ -17,7 +17,7 @@ export function getMovies() {
         return Promise.resolve(res.data)
     })
 }
-//xugou
+//虚构类图书推荐
 export function getXgBooks() {
     const url = 'https://m.douban.com/rexxar/api/v2/subject_collection/book_fiction/items'
     const data = Object.assign({}, booksParams,{
@@ -28,3 +28,13 @@ export function getXgBooks() {
     return jsonp(url, data, options)
 }
 
+//非虚构类图书推荐
+export function getFxgBooks() {
+    const url ='https://m.douban.com/rexxar/api/v2/subject_collection/book_nonfiction/items'
+
+    const data = Object.assign({},booksParams,{
+
+    })
+
+    return jsonp(url, data, options)
+}

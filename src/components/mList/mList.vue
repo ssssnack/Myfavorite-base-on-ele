@@ -5,14 +5,15 @@
         v-loading.fullscreen.lock="loading">
         <el-col :span="6" 
         v-for="item in data" 
-        class="list-item">
-          <el-row class="grid-content" :class="[mType]" :gutter="10">
+        class="list-item"
+        @click.native="jump(item.url)">
+          <el-row class="grid-content" :class="[mType]" :gutter="10" >
               <el-col :span="12">
                 <img v-lazy="item.cover" width="115" height="173" v-if="mType==='bg-movie'">
                 <img v-lazy="item.cover.url"  width="115" height="173" v-if="mType==='bg-book'">
               </el-col>
               <el-col :span="12" class="text">
-                <div class="title">{{item.title}}</div>
+                <div class="title" >{{item.title}}</div>
                 <div class="rate"  v-if="mType==='bg-movie'"> {{item.rate}}
                   <span class="small">分</span>
                   </div>
@@ -47,9 +48,14 @@ export default {
   },
   watch: {
     data() {
-      if(this.data) {
-        this.loading=false
+      if (this.data) {
+        this.loading = false;
       }
+    }
+  },
+  methods: {
+    jump(url) {
+      window.open(url);
     }
   }
 };
@@ -64,23 +70,27 @@ export default {
   .list-item {
     border-radius: 4px;
     margin-bottom: 20px;
-    .text {
-      padding-top: 50px;
-      margin-left: -15px;
-      .title {
-        font-size: 20px;
-        color: #a2a7ad;
-        text-align: center;
-        font-weight: lighter;
-      }
-      .rate {
-        color: #a6924b;
-        text-align: center;
-        font-size: 20px;
-        margin-top: 15px;
-        font-weight: lighter;
-        .small {
-          font-size: 14px;
+    
+    .grid-content {
+      cursor: pointer;
+      .text {
+        padding-top: 50px;
+        margin-left: -15px;
+        .title {
+          font-size: 20px;
+          color: #a2a7ad;
+          text-align: center;
+          font-weight: lighter;
+        }
+        .rate {
+          color: #a6924b;
+          text-align: center;
+          font-size: 20px;
+          margin-top: 15px;
+          font-weight: lighter;
+          .small {
+            font-size: 14px;
+          }
         }
       }
     }
